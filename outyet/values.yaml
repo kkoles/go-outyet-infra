@@ -1,0 +1,31 @@
+# Default values for app.
+
+namespace: app
+
+# Deployment variables
+replicaCount: 2
+
+image:
+  repository: kkoles/outyet
+  pullPolicy: Always
+  tag: 1.0.0
+
+# Service 
+service:
+  type: NodePort
+  port: 8080
+
+# Ingress
+ingress:
+  enabled: true
+  className: nginx
+  annotations: 
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+  hosts:
+    - host: kkoles.net
+      paths:
+        - path: /
+          pathType: ImplementationSpecific
+  tls: 
+    - hosts:
+      - kkoles.net
